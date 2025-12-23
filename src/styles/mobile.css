@@ -1,0 +1,306 @@
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  /* Header */
+  .about-header {
+    min-height: 300px;
+  }
+  
+  .about-header h1 {
+    font-size: 2rem;
+  }
+  
+  .about-header p {
+    font-size: 1rem;
+  }
+  
+  /* Main Layout */
+  .about-main {
+    padding: 2rem 1rem;
+  }
+  
+  .column-group {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .column {
+    padding: 0;
+  }
+  
+  .column h2 {
+    font-size: 1.75rem;
+  }
+  
+  .column h3 {
+    font-size: 1.35rem;
+  }
+  
+  .column h4 {
+    font-size: 1.15rem;
+  }
+  
+  /* Pull Quote */
+  .pull-quote.right {
+    float: none;
+    margin: 2rem auto;
+    max-width: 100%;
+  }
+  
+  /* Related Menu */
+  .related-section {
+    padding: 2rem 1rem;
+    margin-top: 2rem;
+  }
+  
+  .related-section h2 {
+    font-size: 1.75rem;
+  }
+  
+  .related-section h2:before,
+  .related-section h2:after {
+    width: 30px;
+  }
+  
+  .related-menu {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Statistics */
+  .stats-section {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+  }
+  
+  /* Team Grid */
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .team-member {
+    padding: 1.5rem;
+  }
+  
+  /* Philosophy Grid */
+  .philosophy-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Timeline */
+  .timeline {
+    padding-left: 1.5rem;
+  }
+  
+  .timeline:before {
+    left: 0.5rem;
+  }
+  
+  .timeline-item {
+    padding-left: 1.5rem;
+  }
+  
+  .timeline-item:before {
+    left: 0.25rem;
+  }
+  
+  /* Navigation (from your original code) */
+  #menu-bar {
+    padding: 0.5rem 1rem;
+  }
+  
+  #logo {
+    width: 120px;
+    height: 60px;
+  }
+  
+  #logo img {
+    width: 100%;
+    height: auto;
+  }
+  
+  #navigation-bar {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    height: 100vh;
+    background: white;
+    z-index: 1000;
+    transition: right 0.3s ease;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+  }
+  
+  #navigation-bar.active {
+    right: 0;
+  }
+  
+  #menu-button {
+    display: block;
+    position: fixed;
+    right: 1rem;
+    top: 1rem;
+    z-index: 1001;
+    background: #1e7e9e;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+  }
+  
+  .menu-overlay.active {
+    display: block;
+  }
+  
+  .nav-section {
+    margin-bottom: 1rem;
+  }
+  
+  .nav-header {
+    display: block;
+    padding: 0.75rem 0;
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .nav-menu {
+    padding-left: 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  .nav-menu.active {
+    max-height: 500px;
+  }
+  
+  .nav-menu li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .nav-menu a {
+    display: block;
+    padding: 0.5rem 0;
+    color: #666;
+    text-decoration: none;
+  }
+  
+  /* CTA Section */
+  .cta-section {
+    padding: 2rem 1rem;
+    margin: 2rem 0;
+  }
+  
+  .cta-button {
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Bio Photos */
+  .bio-photo {
+    width: 120px;
+    height: 120px;
+  }
+  
+  /* Lists */
+  .column ul {
+    padding-left: 1rem;
+  }
+  
+  .column li {
+    padding-left: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra Small Devices */
+  .about-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .column h2 {
+    font-size: 1.5rem;
+  }
+  
+  .column h3 {
+    font-size: 1.25rem;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .related-section h2:before,
+  .related-section h2:after {
+    display: none;
+  }
+  
+  .pull-quote {
+    padding: 1.5rem;
+  }
+  
+  .pull-quote-text {
+    font-size: 1rem;
+  }
+  
+  .pull-quote-text:before {
+    font-size: 3rem;
+  }
+  
+  /* Column Lists */
+  .column-list {
+    columns: 1 !important;
+  }
+  
+  .philosophy-card {
+    padding: 1.5rem;
+  }
+  
+  /* Footer adjustments */
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .team-member:hover,
+  .related-menu a:hover,
+  .nav-menu a:hover {
+    transform: none !important;
+  }
+  
+  .cta-button {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .menu-secondary a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}

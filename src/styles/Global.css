@@ -1,0 +1,115 @@
+/* Global Styles for About Page */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.mb-5 { margin-bottom: 3rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mt-5 { margin-top: 3rem; }
+
+/* Bio Photo Styles */
+.bio-photo {
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  shape-outside: circle(50%);
+  -webkit-shape-outside: circle(50%);
+  border: 4px solid #36a3bc;
+  object-fit: cover;
+}
+
+/* Board of Directors Specific */
+#board-of-directors hr {
+  clear: both;
+  margin: 1.5em 0;
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #36a3bc, transparent);
+}
+
+#board-of-directors hr {
+  display: block !important;
+}
+
+/* Philosophy Section */
+#philosophy .column-list li:nth-child(7),
+#philosophy .column-list li:nth-child(8),
+#philosophy .column-list li:nth-child(9),
+#philosophy .column-list li:nth-child(10) {
+  display: list-item;
+}
+
+#philosophy .pull-quote {
+  margin-right: 0;
+}
+
+/* Column Lists */
+.column-list {
+  columns: 2;
+  column-gap: 3rem;
+  list-style-position: inside;
+}
+
+.column-list li {
+  break-inside: avoid;
+  margin-bottom: 0.75rem;
+  padding-left: 0.5rem;
+}
+
+/* Responsive Images */
+.responsive-img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Loading Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}

@@ -1,0 +1,53 @@
+
+body#donation-thank-you{
+background:#E8E4D8;
+min-width:0;
+}
+
+#donation-thank-you-message{
+margin-bottom:1em;	
+}
+
+#donation-thank-you-message h2{
+color:white;
+background:#87B12E;
+padding: 10px 10px;
+border-radius: 6px;
+font-size:22px;
+text-align:center;
+}
+
+#donation-tax-receipt p{
+margin-bottom:1em;
+}
+
+.receipt{
+padding: 16px 20px;
+margin-bottom: 10px;
+background-color: #F1EFE7;
+border-radius: 6px;
+}
+
+@media (max-width: 440px){	
+	#donation-frame{
+	height:1420px;	
+	}
+}
+
+#rainbow-book #book-button{
+display:none;
+}
+
+	#rainbow-book #newsletter-content,
+	#rainbow-book #footer-content{
+	padding-right:0;
+	}
+
+#sports-for-ethiopia-registration-downloads header{
+background-image:url(../images/sports-for-ethiopia-banner.jpg);
+}
+	
+#sports-for-ethiopia-registration-downloads table{
+width:100%;
+max-width:600px;
+}

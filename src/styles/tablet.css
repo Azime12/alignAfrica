@@ -1,0 +1,190 @@
+/* Tablet Responsive Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* General Layout */
+  .about-header {
+    min-height: 350px;
+  }
+  
+  .about-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .about-main {
+    padding: 2.5rem;
+  }
+  
+  /* Columns */
+  .column-group {
+    gap: 3rem;
+  }
+  
+  .column h2 {
+    font-size: 1.8rem;
+  }
+  
+  .column h3 {
+    font-size: 1.4rem;
+  }
+  
+  /* Navigation */
+  #menu-bar {
+    padding: 1rem 2rem;
+  }
+  
+  #logo {
+    width: 140px;
+    height: 70px;
+  }
+  
+  .nav-section {
+    margin: 0 0.5rem;
+  }
+  
+  .nav-header {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+  
+  .nav-menu {
+    min-width: 180px;
+  }
+  
+  /* Team Grid */
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  /* Philosophy Grid */
+  .philosophy-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  /* Statistics */
+  .stats-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Related Menu */
+  .related-menu {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Pull Quote */
+  .pull-quote.right {
+    max-width: 300px;
+    margin-left: 1.5rem;
+  }
+  
+  /* Bio Photos */
+  .bio-photo {
+    width: 130px;
+    height: 130px;
+  }
+  
+  /* Timeline */
+  .timeline {
+    padding-left: 1.5rem;
+  }
+  
+  .timeline:before {
+    left: 0.25rem;
+  }
+  
+  .timeline-item {
+    padding-left: 1.5rem;
+  }
+  
+  .timeline-item:before {
+    left: 0.1rem;
+  }
+  
+  /* CTA Section */
+  .cta-section {
+    padding: 3rem 2rem;
+  }
+  
+  /* Lists */
+  .column-list {
+    columns: 2;
+    column-gap: 2rem;
+  }
+  
+  /* Menu Secondary */
+  .menu-secondary {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    z-index: 100;
+  }
+  
+  .menu-secondary a {
+    padding: 0.75rem 1.5rem;
+    background: #1e7e9e;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+}
+
+/* Landscape Tablet */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+  .about-header {
+    min-height: 250px;
+  }
+  
+  .column-group {
+    grid-template-columns: 1fr;
+  }
+  
+  .team-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .philosophy-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stats-section {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Donate Link Tablet Styles */
+@media (max-width: 1024px) {
+  #donate-link {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 100;
+  }
+  
+  #donate-link-button {
+    width: auto;
+    padding: 0.75rem 1.5rem;
+    background: #e03e2d;
+    color: white;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 12px rgba(224, 62, 45, 0.3);
+  }
+  
+  #donate-link-message {
+    display: none;
+  }
+  
+  #donate-link-message-narrow {
+    display: none;
+  }
+}

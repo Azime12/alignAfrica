@@ -1,0 +1,170 @@
+
+form{margin-top: 2em;}
+form li{margin-bottom: 1.5em;}
+label{display: block; margin-bottom:1em; font-weight: 700;}
+input, select, textarea {
+	border: 1px solid #DDD;
+	color: #777;
+	font-size: 1em;
+	padding: 1em;
+	width:60%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	*behavior: url(/js/boxsizing.htc); }
+textarea{padding: 1em; min-height:15em; height: auto; width: 90%; }
+
+input, textarea {
+ -moz-transition: border .25s;ul.subjects { padding-left: 0; list-style: none; }
+ul.pages { padding-left: 2em; list-style: square; }
+.selected { font-weight: bold; }
+
+/* Page Content */
+#page { padding-left: 2em; vertical-align: top; background: #FFF; }
+#page h2 { color: #8D0D19; margin-top: 1em;}
+#page h3 { color: #8D0D19; }
+
+
+ -webkit-transition: border .25s;
+ -o-transition: border .25s;
+ transition: border .25s;}
+input:hover, textarea:hover, input:focus, textarea:focus,input:active, textarea:active { border: 1px solid #999;}
+input[type="text"],textarea{cursor: text;}
+input[type="radio"], input[type="checkbox"] { display: inline; width:auto; height: auto; margin-right: 1em; }
+input[type="checkbox"] + label, input[type="radio"] + label { display: inline;}
+input[type="file"]{ border: none;}
+input[type="date"]{ width: auto;}
+select {height: auto;}
+/* Placeholders */
+::-webkit-input-placeholder { color: #BBB;}
+:-moz-placeholder {color: #BBB;}
+:-ms-input-placeholder {color: #BBB;}
+
+.button, input[type="submit"], button, .toggle-title {
+	color: #666;
+	font-size: 1.1em;
+	font-weight: normal;
+	padding: 0.6em 1.2em;
+	text-shadow: 0 1px 0 #fff;
+	border: solid 1px #ddd;
+	text-decoration: none;
+	cursor: pointer;
+	
+	background: #efefef; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f6f6f6 0%, #efefef 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6f6f6), color-stop(100%,#efefef)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #f6f6f6 0%,#efefef 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #f6f6f6 0%,#efefef 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #f6f6f6 0%,#efefef 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #f6f6f6 0%,#efefef 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', endColorstr='#efefef',GradientType=0 ); /* IE6-9 */
+		
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-khtml-border-radius: 2px;
+	border-radius: 2px;
+	
+	-webkit-transition: 0.1s linear all;
+	-moz-transition: 0.1s linear all;
+	-ms-transition: 0.1s linear all;
+	-o-transition: 0.1s linear all;
+	transition: 0.1s linear all; }
+
+.button:hover, input[type="submit"]:hover, button:hover, .toggle-title:hover {
+	color: #666;
+	text-decoration: none;
+	border-color: #BBB;
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	background: 0 100%;}
+
+.button:focus, input[type="submit"]:focus, button:focus, .toggle-title:focus {
+	color: #333;
+	border-color: #BBB;}
+
+.button:active, input[type="submit"]:active, button:active, .toggle-title:active {
+	color: #000;
+	background: #F5F5F5;
+	border-color: #444;
+	position: relative; top:1px;}
+
+#content div div#account {
+	background: url(../img/bg-form-top-curve.gif) no-repeat center top;	
+	color: #5F5D5E;
+	margin: 20px auto 0;
+	padding: 0 0 0 0 ;
+	width: 420px;
+}
+
+#content div div#account div {
+	
+	background: url(../img/bg-form-bottom-curve.gif) no-repeat center bottom;
+	padding: 0 0 10px;
+	width: auto;
+}
+
+#content div div#account div form {
+	background: url(../img/bg-form.gif) repeat-y;
+	margin: 0;
+	padding-bottom: 15px;
+}
+
+#content div div#account div form input {
+	color: #5F5D5E;
+	margin: 0 0 0 10px;
+}
+
+#content div div#account div form span {
+	color: #84284D;
+	display: block;
+	padding: 15px 10px 10px 15px;
+}
+
+
+#content div div#account div form input#rememberme {
+	display: inline-block;
+	vertical-align: sub;
+}
+
+#content div div#account div ul {
+margin-left:45px;
+}
+
+
+#content div div#account div form table tr td.rememberme {
+	padding: 0;
+	text-align: left;
+}
+
+#content div div#account div form table tr td label input#rememberme {
+	vertical-align: sub;
+}
+
+#content div div#account div form input.submitbtn {
+	background: url(../images/sprite-buttons.gif) no-repeat 0 -376px;
+	color: #84284D;
+	border: 0;
+	height: 25px;
+	font-size: 11px;
+	margin-left: 300px;
+	margin-top: 10px;
+	text-transform: uppercase;
+	width: 90px;
+}
+
+#content div form input.textcontact {
+	background: url(../images/input-contact.gif) no-repeat 0 0;
+	border: 0 none;
+	font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    width: 341px;
+}
+
+<!--  new style   -->
+

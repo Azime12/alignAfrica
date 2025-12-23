@@ -1,0 +1,114 @@
+#tarkanfi-sustainable-development .column-left{
+position:relative;	
+z-index:3;
+}
+
+
+
+@media (min-width: 1000px){	
+	#tarkanfi-sustainable-development .pull-quote{
+	margin-right:-80px;
+	}
+}
+
+@media (min-width: 1300px){	
+	#tarkanfi-sustainable-development .pull-quote{
+	margin-right:-120px;
+	z-index:5;
+	position:relative;	
+	}
+}
+
+/*
+@media (max-width: 1100px){	
+	#tarkanfi-sustainable-development .pull-quote{
+	display:none;
+	}
+}*/
+
+@media (min-width: 1000px){	
+	#tarkanfi-sustainable-development .feature{
+	margin-top:-50px;	
+	}
+}
+
+@media (min-width: 1100px){	
+	#tarkanfi-sustainable-development .feature{
+	margin-top:-100px;	
+	}
+}
+
+
+.project{
+display:inline-block;
+width:46%;
+margin-right:3.5%;
+vertical-align:top;	
+padding:0.5em 0;
+}
+
+	.project tr:last-child td{
+	border:none;
+	}
+	
+.project h3{
+font-weight:bold;	
+}
+
+	#development-partners h3 a{
+	text-decoration:none;	
+	}
+
+.project table{
+width:100%;	
+}
+
+@media (max-width: 1000px){	
+	.project{
+	display:block;
+	width:auto;
+	margin:0;		
+	}
+}
+
+
+.area-served{
+width:20%;
+}
+
+.projects{
+width:40%;
+}
+
+.description{
+width:40%;	
+}
+
+
+
+.development-map{
+border-radius:50%;	
+height:auto;
+max-width:500px;
+margin-left:auto;
+margin-right:auto;
+display:block;
+}
+
+
+
+
+#awassa-catholic-secretariat .feature h2{
+padding:0 10%;
+}
+
+#awassa-catholic-secretariat .feature .indent{
+margin-left:4em;	
+}
+
+@media (max-width: 480px){	
+	#awassa-catholic-secretariat .feature .indent{
+	margin-left:2em;	
+	}
+
+}
