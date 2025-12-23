@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronRight, X, Menu } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { ChevronRight, X, Menu, Home as HomeIcon, Heart } from 'lucide-react';
 import { menuItems } from '../data/menuItems';
+import { ProjectorIcon, Contact, DatabaseZap } from 'lucide-react';
 
-// HeaderLayout Component
 const HeaderLayout = ({ children, isMenuOpen, setIsMenuOpen }) => {
   return (
     <>
-      {/* Mobile Overlay */}
       {isMenuOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/60 md:hidden"
@@ -15,18 +14,28 @@ const HeaderLayout = ({ children, isMenuOpen, setIsMenuOpen }) => {
         />
       )}
 
-      {/* Header */}
-      <section className="fixed top-0 left-0 z-50 h-[70px] w-full bg-[#7b3400] shadow-lg">
-        <div className="relative mx-auto h-full max-w-full px-4 md:max-w-[1000px] md:px-0">
-          {children}
-        </div>
-      </section>
+     <header className="fixed top-0 left-0 z-50 w-full bg-[#7b3400] shadow-lg">
+  <div
+    className="
+      mx-auto
+      h-[70px]
+      max-w-[1200px]
+      px-4
+      grid
+      grid-cols-[auto_1fr_auto]
+      items-center
+      gap-3
+    "
+  >
+    {children}
+  </div>
+</header>
+
     </>
   );
 };
 
-// MenuButton Component - Responsive with close icon
-const MenuButton = ({ isMenuOpen, setIsMenuOpen, onMenuButtonClick }) => {
+const MenuButton = ({ isMenuOpen, setIsMenuOpen, onMenuButtonClick, isMobile }) => {
   const handleClick = () => {
     const newState = !isMenuOpen;
     setIsMenuOpen(newState);
@@ -61,8 +70,7 @@ const MenuButton = ({ isMenuOpen, setIsMenuOpen, onMenuButtonClick }) => {
         <>
           <X size={24} className="md:hidden" />
           <span className="hidden md:inline">☰</span>
-          <span className="md:hidden">Close</span>
-          <span className="hidden md:inline">Menu</span>
+         
         </>
       ) : (
         <>
@@ -75,12 +83,11 @@ const MenuButton = ({ isMenuOpen, setIsMenuOpen, onMenuButtonClick }) => {
   );
 };
 
-// SecondaryMenu Component
-const SecondaryMenu = () => {
+const SecondaryMenu = ({ isMobile }) => {
   const menuLinks = [
-    { href: "https://alignafrica.org/FQAS.html", text: "Get involved" },
-    { href: "Contact alignafrica.html", text: "Contact" },
-    { href: "resources.html", text: "Resources" },
+    { href: "/faqs", text: "Get involved", icon: ProjectorIcon },
+    { href: "/contactsUs", text: "Contact", icon: Contact },
+    { href: "/resource", text: "Resources", icon: DatabaseZap },
   ];
 
   return (
@@ -97,70 +104,56 @@ const SecondaryMenu = () => {
           pr-5
         "
       >
-        <ul className="flex items-center justify-end h-full m-0 space-x-2 list-none">
+        <ul className="flex items-center justify-end h-full m-0 space-x-4 list-none">
           {menuLinks.map((link, index) => (
             <li key={index}>
-              <a
-                href={link.href}
-                className="flex items-center h-full px-3 text-white transition-colors duration-300 hover:bg-white/20 hover:rounded-full whitespace-nowrap"
+              <Link
+                to={link.href}
+                className="flex items-center gap-2 h-full px-4 text-white transition-colors duration-300 hover:bg-white/20 hover:rounded-full whitespace-nowrap"
               >
-                {link.text}
-              </a>
+                {link.icon && <link.icon className="w-5 h-5" />}
+                <span>{link.text}</span>
+              </Link>
             </li>
           ))}
         </ul>
       </div>
 
-      {/* Mobile version */}
-      <div className="absolute top-0 left-[165px] right-0 h-[70px] z-20 md:hidden">
-        <div className="flex items-center justify-end h-full pr-4">
-          <button
-            className="
-              flex items-center justify-center
-              h-10 px-4
-              bg-[#91bc36]
-              text-white
-              rounded-full
-              font-medium
-              transition-all duration-300
-              hover:bg-[#a7d447]
-              whitespace-nowrap
-              text-sm
-              border-none outline-none
-            "
-            onClick={() => document.getElementById('donate-link')?.click()}
-          >
-            Donate
-          </button>
+      {/* Mobile version - Simplified */}
+      {isMobile && (
+        <div className="absolute top-0 left-[165px] right-0 h-[70px] z-20">
+          <div className="flex items-center justify-end h-full pr-4">
+            <Link
+              className="
+                flex items-center justify-center
+                h-10 px-4
+                bg-[#91bc36]
+                text-white
+                rounded-full
+                font-medium
+                transition-all duration-300
+                hover:bg-[#a7d447]
+                whitespace-nowrap
+                text-sm
+                border-none outline-none
+              "
+              to={'/donate'}
+            >
+              Donate
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
 
-// NavigationItem Component - Responsive
 const NavigationItem = ({ item, activeMenu, handleMenuHover, closeMenu, isMenuOpen }) => {
   const itemRef = useRef(null);
   const submenuRef = useRef(null);
   const [openDirection, setOpenDirection] = useState("down");
-  const [submenuMaxHeight, setSubmenuMaxHeight] = useState("auto");
-
-  const getSubmenuPadding = () => {
-    const paddingMap = {
-      "nav-ethiopians": "15px",
-      "nav-projects": "40px",
-      "nav-heroes": "100px",
-      "nav-success-stories": "160px",
-      "nav-solutions": "160px",
-      "nav-about": "60px",
-      "nav-problems": "60px",
-      default: "20px"
-    };
-    return paddingMap[item.id] || paddingMap.default;
-  };
 
   const isActive = activeMenu === item.id;
-  const Icon = item.icon;
 
   useEffect(() => {
     if (!isActive || !itemRef.current || !submenuRef.current) return;
@@ -173,16 +166,12 @@ const NavigationItem = ({ item, activeMenu, handleMenuHover, closeMenu, isMenuOp
 
     if (spaceBelow >= submenuHeight) {
       setOpenDirection("down");
-      setSubmenuMaxHeight(submenuHeight);
     } else if (spaceAbove >= submenuHeight) {
       setOpenDirection("up");
-      setSubmenuMaxHeight(submenuHeight);
     } else if (spaceBelow >= spaceAbove) {
       setOpenDirection("down");
-      setSubmenuMaxHeight(spaceBelow - 20);
     } else {
       setOpenDirection("up");
-      setSubmenuMaxHeight(spaceAbove - 20);
     }
   }, [isActive]);
 
@@ -208,123 +197,165 @@ const NavigationItem = ({ item, activeMenu, handleMenuHover, closeMenu, isMenuOp
       ref={itemRef}
       className={`
         relative group w-full md:w-[300px] box-border
-        border-r-0 md:border-r-4 border-white
-        ${item.bgColor}
-        ${isActive ? "z-30 md:border-r-transparent" : ""}
-        min-h-[70px]
+        transition-all duration-300
+        ${isActive ? "z-30" : ""}
       `}
       onMouseEnter={() => handleMenuHover(item.id)}
     >
-      <div className="absolute inset-0 transition-all duration-300 bg-white/5 group-hover:bg-white/15" />
+      {/* Main Menu Item */}
+      <div className={`
+        relative transition-all duration-300
+        ${item.bgColor}
+        ${isActive ? "md:border-r-4 border-white" : "md:border-r-4 border-transparent"}
+      `}>
+        <div className="absolute inset-0 transition-all duration-300 bg-white/5 group-hover:bg-white/15" />
 
-      <Link
-        to={item.path}
-        onClick={(e) => {
-          if (item.submenu && item.submenu.length > 0) {
-            handleItemClick(e);
-          } else {
-            handleInternalLinkClick();
-          }
-        }}
-        className="
-          relative flex items-center gap-3
-          py-1 pl-[28px] pr-4
-          text-white no-underline
-          font-['EB_Garamond'] text-[22px]
-          transition-all duration-300
-          w-full
-          h-full
-          min-h-[70px]
-          items-center
-        "
-      >
-        {Icon && <Icon size={20} className="opacity-90 shrink-0" />}
-        <span className="flex-1">{item.title}</span>
-
-        {item.submenu && item.submenu.length > 0 && (
-          <ChevronRight
-            size={18}
-            className={`transition-transform duration-300 ${
-              isActive ? "md:translate-x-1 opacity-100" : "opacity-60"
-            }`}
-          />
-        )}
-      </Link>
-
-      {item.submenu && item.submenu.length > 0 && (
-        <div
-          ref={submenuRef}
-          className={`
-            absolute left-0
-            w-full md:w-[458px] md:pr-[40px] box-border
-            bg-right bg-cover bg-no-repeat
-            ${item.menuBgColor} ${item.menuBgImage}
-            transition-all duration-300
-            ${isActive ? "opacity-100 visible z-40" : "opacity-0 invisible"}
-            md:left-[300px]
-            md:top-0
-            top-full
-          `}
-          style={{
-            top: openDirection === "down" ? "0" : "auto",
-            bottom: openDirection === "up" ? "0" : "auto",
-            maxHeight: submenuMaxHeight,
-            paddingTop: getSubmenuPadding(),
-            overflowY: "auto"
+        <Link
+          to={item.path}
+          onClick={(e) => {
+            if (item.submenu && item.submenu.length > 0) {
+              handleItemClick(e);
+            } else {
+              handleInternalLinkClick();
+            }
           }}
+          className="
+            relative flex items-center gap-3
+            py-4 pl-[28px] pr-4
+            text-white no-underline
+            font-['EB_Garamond'] text-[22px]
+            transition-all duration-300
+            w-full
+          "
         >
+          {item.icon && (
+            <div className="flex-shrink-0 opacity-90">
+              {item.icon}
+            </div>
+          )}
+          <span className="flex-1">{item.title}</span>
+
+          {item.submenu && item.submenu.length > 0 && (
+            <ChevronRight
+              size={18}
+              className={`flex-shrink-0 transition-transform duration-300 ${
+                isActive ? "md:rotate-90 opacity-100" : "opacity-60"
+              }`}
+            />
+          )}
+        </Link>
+      </div>
+
+      {/* Submenu Container - Auto height based on content */}
+      <div
+        ref={submenuRef}
+        className={`
+          relative md:absolute
+          left-0
+          w-full md:w-[458px] md:pr-[40px] box-border
+          bg-right bg-cover bg-no-repeat
+          transition-all duration-300 ease-in-out
+          ${isActive 
+            ? "opacity-100 visible z-40" 
+            : "opacity-0 invisible"
+          }
+          md:left-[300px]
+          md:top-0
+          md:top-full
+        `}
+        style={{
+          top: openDirection === "down" ? "0" : "auto",
+          bottom: openDirection === "up" ? "0" : "auto",
+          height: isActive ? "auto" : "0",
+          backgroundColor: isActive ? "transparent" : "transparent",
+          backgroundImage: isActive ? item.menuBgImage : "none"
+        }}
+      >
+        {/* Submenu Background Layer */}
+        <div 
+          className={`
+            absolute inset-0
+            transition-opacity duration-300
+            ${isActive ? "opacity-100" : "opacity-0"}
+            ${item.menuBgColor}
+          `}
+        />
+        
+        {/* Submenu Background Image */}
+        <div 
+          className={`
+            absolute inset-0 bg-right bg-cover bg-no-repeat
+            transition-opacity duration-300
+            ${isActive ? "opacity-100" : "opacity-0"}
+            ${item.menuBgImage}
+          `}
+        />
+
+        {/* Submenu Content - Auto height */}
+        <div className="relative z-10">
           <ul className="p-0 m-0 list-none">
-            {item.submenu.map((subItem, index) => (
+            {item.submenu && item.submenu.map((subItem, index) => (
               <li key={index} className="mb-1">
                 {subItem.external ? (
                   <a
                     href={subItem.external}
                     onClick={(e) => handleLinkClick(e, subItem.external, true)}
                     className="
-                      block
-                      py-2 px-4 md:py-1 md:pl-[30px] md:pr-4
+                      flex items-center gap-3
+                      py-3 px-4 md:py-2 md:pl-[30px] md:pr-4
                       text-white no-underline
-                      whitespace-normal md:whitespace-nowrap overflow-hidden truncate
+                      whitespace-normal md:whitespace-nowrap overflow-hidden
                       transition-all duration-200
                       hover:bg-white/20
                       cursor-pointer
                       text-base md:text-inherit
+                      relative z-10
                     "
                     title={subItem.title}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {subItem.title}
+                    {subItem.icon && (
+                      <div className="flex-shrink-0 opacity-80">
+                        {subItem.icon}
+                      </div>
+                    )}
+                    <span className="truncate">{subItem.title}</span>
                   </a>
                 ) : (
                   <Link
                     to={subItem.path}
                     onClick={handleInternalLinkClick}
                     className="
-                      block
-                      py-2 px-4 md:py-1 md:pl-[30px] md:pr-4
-                      text-white no-underline
-                      whitespace-normal md:whitespace-nowrap overflow-hidden truncate
+                      flex items-center gap-3
+                      py-3 px-4 md:py-2 md:pl-[30px] md:pr-4
+                      text-white/90 no-underline
+                      whitespace-normal md:whitespace-nowrap overflow-hidden
                       transition-all duration-200
-                      hover:bg-white/20
+                      hover:bg-white/20 hover:text-white
                       cursor-pointer
-                      text-base md:text-inherit
+                      text-base md:text-[15px]
+                      relative z-10
                     "
                     title={subItem.title}
                   >
-                    {subItem.title}
+                    {subItem.icon && (
+                      <div className="flex-shrink-0 opacity-80 group-hover:opacity-100 transition-opacity">
+                        {subItem.icon}
+                      </div>
+                    )}
+                    <span className="truncate">{subItem.title}</span>
                   </Link>
                 )}
               </li>
             ))}
           </ul>
         </div>
-      )}
+      </div>
     </div>
   );
 };
 
-// NavigationMenu Component - Responsive
 const NavigationMenu = ({
   isMenuOpen,
   activeMenu,
@@ -344,7 +375,8 @@ const NavigationMenu = ({
         z-50
         transition-all duration-300
         ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}
-        max-h-[calc(100vh-70px)] overflow-y-auto md:max-h-none md:overflow-y-visible
+        overflow-y-auto md:overflow-y-visible
+        max-h-[calc(100vh-70px)]
       `}
       onMouseLeave={handleMenuLeave}
     >
@@ -365,7 +397,7 @@ const NavigationMenu = ({
           flex flex-col md:block
         `}
       >
-        {menuItems.map((item) => (
+        {menuItems?.map((item) => (
           <NavigationItem
             key={item.id}
             item={item}
@@ -380,7 +412,6 @@ const NavigationMenu = ({
   );
 };
 
-// Navigation Component - Responsive positioning
 const Navigation = ({
   isMobile,
   isMenuOpen,
@@ -398,12 +429,15 @@ const Navigation = ({
         isMenuOpen ? 'bg-white shadow-lg' : ''
       }`}
     >
-      <MenuButton 
+      {
+        isMobile?'':<MenuButton 
         isMenuOpen={isMenuOpen} 
         setIsMenuOpen={setIsMenuOpen}
         onMenuButtonClick={onMenuButtonClick}
+        isMobile={isMobile}
       />
-      <SecondaryMenu />
+      }
+      <SecondaryMenu isMobile={isMobile} />
       
       <NavigationMenu
         isMenuOpen={isMenuOpen}
@@ -418,10 +452,9 @@ const Navigation = ({
   );
 };
 
-// MobileNavigationItem Component - Improved
 const MobileNavigationItem = ({ item, activeMenu, setActiveMenu, closeMenu }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const Icon = item.icon;
+  const submenuRef = useRef(null);
 
   useEffect(() => {
     setIsOpen(activeMenu === item.id);
@@ -436,31 +469,42 @@ const MobileNavigationItem = ({ item, activeMenu, setActiveMenu, closeMenu }) =>
   };
 
   return (
-    <div
-      className={`relative w-auto ${item.bgColor} bg-[url(/images/nav-pattern-right.png)] bg-right-top bg-repeat-y bg-[length:21px_auto]`}
-    >
+    <div className={`relative w-auto ${item.bgColor}`}>
       <button
-        className="block w-full text-left pl-[25px] pr-12 py-4 text-white no-underline font-['EB_Garamond'] text-[20px] relative border-none bg-transparent cursor-pointer"
+        className="flex items-center gap-3 w-full text-left pl-[25px] pr-12 py-4 text-white no-underline font-['EB_Garamond'] text-[20px] relative border-none bg-transparent cursor-pointer"
         onClick={handleClick}
       >
         <span className="absolute left-[10px] top-1/2 transform -translate-y-1/2">•</span>
-        {Icon && <Icon size={18} className="absolute left-10 top-1/2 transform -translate-y-1/2 opacity-90" />}
-        <span className="ml-10 block">{item.title}</span>
+        
+        {item.icon && (
+          <div className="absolute left-10 top-1/2 transform -translate-y-1/2 opacity-90">
+            {item.icon}
+          </div>
+        )}
+        
+        <span className="ml-10 block flex-1">{item.title}</span>
         {item.submenu && item.submenu.length > 0 && (
           <ChevronRight
             size={16}
-            className={`absolute right-4 top-1/2 transform -translate-y-1/2 transition-transform duration-300 ${
+            className={`flex-shrink-0 absolute right-4 top-1/2 transform -translate-y-1/2 transition-transform duration-300 ${
               isOpen ? 'rotate-90' : ''
             }`}
           />
         )}
       </button>
 
+      {/* Mobile Submenu - Auto height based on content */}
       {item.submenu && item.submenu.length > 0 && (
         <div
-          className={`overflow-hidden transition-all duration-300 ${
-            isOpen ? 'max-h-[1000px]' : 'max-h-0'
-          }`}
+          ref={submenuRef}
+          className={`
+            overflow-hidden transition-all duration-300
+            bg-gradient-to-r ${item.menuBgColor} to-transparent
+            ${isOpen ? 'opacity-100' : 'opacity-0'}
+          `}
+          style={{
+            height: isOpen ? submenuRef.current?.scrollHeight + 'px' : '0px'
+          }}
         >
           <ul className="list-none m-0 p-0">
             {item.submenu.map((subItem, index) => (
@@ -469,19 +513,29 @@ const MobileNavigationItem = ({ item, activeMenu, setActiveMenu, closeMenu }) =>
                   <a
                     href={subItem.external}
                     onClick={closeMenu}
-                    className="block py-3 px-12 text-white no-underline transition-colors duration-300 hover:bg-white/20 text-base"
+                    className="flex items-center gap-3 py-3 px-12 text-white no-underline transition-colors duration-300 hover:bg-white/20 text-base"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {subItem.title}
+                    {subItem.icon && (
+                      <div className="opacity-80">
+                        {subItem.icon}
+                      </div>
+                    )}
+                    <span>{subItem.title}</span>
                   </a>
                 ) : (
                   <Link
                     to={subItem.path}
                     onClick={closeMenu}
-                    className="block py-3 px-12 text-white no-underline transition-colors duration-300 hover:bg-white/20 text-base"
+                    className="flex items-center gap-3 py-3 px-12 text-white no-underline transition-colors duration-300 hover:bg-white/20 text-base"
                   >
-                    {subItem.title}
+                    {subItem.icon && (
+                      <div className="opacity-80">
+                        {subItem.icon}
+                      </div>
+                    )}
+                    <span>{subItem.title}</span>
                   </Link>
                 )}
               </li>
@@ -493,12 +547,11 @@ const MobileNavigationItem = ({ item, activeMenu, setActiveMenu, closeMenu }) =>
   );
 };
 
-// MobileSecondaryMenu Component
 const MobileSecondaryMenu = ({ closeMenu }) => {
   const menuLinks = [
-    { href: "https://alignafrica.org/FQAS.html", text: "Get involved" },
-    { href: "Contact alignafrica.html", text: "Contact" },
-    { href: "resources.html", text: "Resources" }
+    { href: "https://alignafrica.org/FQAS.html", text: "Get involved", icon: ProjectorIcon },
+    { href: "Contact alignafrica.html", text: "Contact", icon: Contact },
+    { href: "resources.html", text: "Resources", icon: DatabaseZap }
   ];
 
   return (
@@ -509,9 +562,10 @@ const MobileSecondaryMenu = ({ closeMenu }) => {
             <a
               href={link.href}
               onClick={closeMenu}
-              className="block py-3 px-4 text-white bg-gradient-to-r from-[#36a3bc] to-[#1e7e9e] no-underline rounded-lg transition-colors duration-300 hover:bg-white/20 text-base"
+              className="flex items-center gap-3 py-3 px-4 text-white bg-gradient-to-r from-[#36a3bc] to-[#1e7e9e] no-underline rounded-lg transition-colors duration-300 hover:bg-white/20 text-base"
             >
-              {link.text}
+              {link.icon && <link.icon className="w-5 h-5" />}
+              <span>{link.text}</span>
             </a>
           </li>
         ))}
@@ -520,7 +574,6 @@ const MobileSecondaryMenu = ({ closeMenu }) => {
   );
 };
 
-// MobileNavigation Component
 const MobileNavigation = ({
   isMobile,
   isMenuOpen,
@@ -538,31 +591,68 @@ const MobileNavigation = ({
   return (
     <div
       id="mobile-navigation"
-      className={`fixed top-0 left-0 w-full max-w-[280px] h-full bg-[#1A1A1A] shadow-[0_0_15px_rgba(0,0,0,0.5)] overflow-auto z-40 transition-transform duration-300 ease-in-out ${
+      className={`fixed top-0 left-0 w-full max-w-[320px] h-full bg-[#1A1A1A] shadow-[0_0_15px_rgba(0,0,0,0.5)] overflow-auto z-40 transition-transform duration-300 ease-in-out ${
         isMenuOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
     >
-      {/* Mobile Header with Close Button */}
-      <div className="sticky top-0 z-50 p-4 bg-[#1A1A1A] border-b border-white/10">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-[#f7bc47] flex items-center justify-center">
-              <span className="text-black font-bold">A</span>
-            </div>
-            <span className="text-white font-bold text-lg">Menu</span>
+      {/* Mobile Header with Logo and Close Button */}
+      <div className="sticky top-0 z-50 p-4 bg-[#1A1A1A] border-b border-white/10 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden">
+            <img 
+              src="/images/alignafrica.png" 
+              alt="Align Africa Logo" 
+              className="w-8 h-8 object-contain"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://via.placeholder.com/32x32?text=AA";
+              }}
+            />
           </div>
-          <button
-            onClick={closeMenu}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors duration-200 border-none outline-none"
-            aria-label="Close menu"
-          >
-            <X size={20} />
-          </button>
+          <span className="text-white font-bold text-lg">Align Africa</span>
+        </div>
+        <button
+          onClick={closeMenu}
+          className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors duration-200 border-none outline-none"
+          aria-label="Close menu"
+        >
+          <X size={24} />
+        </button>
+      </div>
+
+      {/* Mobile Donate Section */}
+      <div className="p-4 bg-gradient-to-r from-[#36a3bc] to-[#1e7e9e]">
+        <Link
+          to="/donate"
+          onClick={closeMenu}
+          className="
+            flex items-center justify-center
+            h-12
+            bg-[#91bc36]
+            text-white
+            rounded-full
+            font-bold text-lg
+            transition-all duration-300
+            hover:bg-[#a7d447]
+            border-none outline-none
+            shadow-lg
+          "
+        >
+          <Heart size={20} className="mr-2" />
+          Donate Now
+        </Link>
+        
+        {/* Donate Message */}
+        <div className="mt-2 text-center text-white/90 text-sm">
+          <span className="font-['EB_Garamond'] text-lg font-normal">
+            80%+
+          </span>{' '}
+          goes directly to recipients
         </div>
       </div>
 
       <nav className="py-2">
-        {menuItems.map((item) => (
+        {menuItems?.map((item) => (
           <MobileNavigationItem
             key={item.id}
             item={item}
@@ -575,22 +665,17 @@ const MobileNavigation = ({
         <MobileSecondaryMenu closeMenu={closeMenu} />
       </nav>
 
-      {/* Mobile Footer */}
-      <div className="sticky bottom-0 p-4 bg-[#1A1A1A] border-t border-white/10">
-        <div className="text-center text-white/60 text-sm">
-          © {new Date().getFullYear()} Align Africa
-        </div>
-      </div>
+   
     </div>
   );
 };
 
-// Main Header Component
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
   const [bgColor, setBgColor] = useState("bg-[#1A1A1A]/80");
+  const location = useLocation();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -615,6 +700,12 @@ const Header = () => {
       document.body.style.overflow = '';
     };
   }, [isMenuOpen, isMobile]);
+
+  useEffect(() => {
+    // Close menu when route changes
+    setIsMenuOpen(false);
+    setActiveMenu(null);
+  }, [location.pathname]);
 
   const handleMenuHover = (menuId) => {
     if (!isMobile) {
@@ -660,13 +751,21 @@ const Header = () => {
       <Link
         to="/" 
         id="logo"
-        className="absolute left-4 md:left-0 top-[-80px] md:top-[-100px] z-20 block w-[120px] md:w-[170px] h-[150px] md:h-[220px] bg-white border-[6px] md:border-[10px] border-[#953673] rounded-[50%] shadow-[0_2px_8px_rgba(0,0,0,0.5)] transition-colors duration-300 hover:border-[#BC497D] overflow-hidden"
+        className="
+          absolute left-1/2 transform -translate-x-1/2 md:left-0 md:transform-none
+          top-[-60px] md:top-[-100px]
+          w-[100px] h-[100px] md:w-[170px] md:h-[220px]
+          bg-white border-[6px] md:border-[10px] border-[#953673]
+          rounded-[50%] shadow-[0_2px_8px_rgba(0,0,0,0.5)]
+          transition-colors duration-300 hover:border-[#BC497D]
+          overflow-hidden z-20 block
+        "
         onClick={closeMenu}
       >
         <img 
           src="/images/alignafrica.png" 
-          alt="alignafrica" 
-          className="absolute left-1/2 top-[70%] transform -translate-x-1/2 -translate-y-1/2 w-[80px] md:w-[110px] h-auto border-0"
+          alt="Align Africa" 
+          className="absolute left-1/2 top-[65%] transform -translate-x-1/2 -translate-y-1/2 w-[60px] md:w-[110px] h-auto border-0"
           onError={(e) => {
             e.target.onerror = null;
             e.target.src = "https://via.placeholder.com/110x110?text=Align+Africa";
@@ -721,7 +820,7 @@ const Header = () => {
             </span>
             <span
               id="donate-link-message"
-              className="text-[13px]"
+              className="text-[13px] mt-1"
             >
               <strong className="font-['EB_Garamond'] text-[16px] font-normal">
                 80%+  
@@ -731,15 +830,36 @@ const Header = () => {
           </span>
         </Link>
 
+        {/* Mobile Donate Info Bar - Fixed at bottom */}
         {isMobile && (
           <div
-            id="donate-link-message-narrow"
-            className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-[#36a3bc] to-[#1e7e9e] text-white z-30 text-center py-2 px-4"
+            id="mobile-donate-info"
+            className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-[#36a3bc] to-[#1e7e9e] text-white z-30 text-center py-2 px-4 shadow-lg"
           >
-            <strong className="font-['EB_Garamond'] text-[16px] md:text-[20px] font-normal">
-              80%+
-            </strong>{' '}
-            goes to recipients
+            <div className="flex items-center justify-between">
+              <div className="text-left">
+                <div className="text-xs opacity-90">Your donation makes a difference</div>
+                <div className="font-['EB_Garamond'] text-sm font-normal">
+                  <strong className="text-lg">80%+</strong> goes to recipients
+                </div>
+              </div>
+              <Link
+                to="/donate"
+                onClick={closeMenu}
+                className="
+                  bg-[#91bc36] text-white
+                  px-4 py-2
+                  rounded-full
+                  font-medium text-sm
+                  transition-all duration-300
+                  hover:bg-[#a7d447]
+                  whitespace-nowrap
+                  border-none outline-none
+                "
+              >
+                Donate
+              </Link>
+            </div>
           </div>
         )}
       </div>
@@ -752,17 +872,24 @@ const Header = () => {
         setActiveMenu={setActiveMenu}
       />
 
-      {/* Mobile Menu Toggle Button */}
+      {/* Mobile Menu Toggle Button - Fixed position for mobile */}
       {isMobile && (
         <button
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 md:hidden w-10 h-10 flex items-center justify-center"
+          className="
+            absolute left-4 top-1/2 transform -translate-y-1/2 z-30 md:hidden
+            w-12 h-12 flex items-center justify-center
+            bg-[#f7bc47] rounded-full
+            shadow-lg
+            hover:bg-[#FCDC9A]
+            transition-colors duration-300
+          "
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
           {isMenuOpen ? (
-            <X size={28} className="text-white" />
+            <X size={28} className="text-black" />
           ) : (
-            <Menu size={28} className="text-white" />
+            <Menu size={28} className="text-black" />
           )}
         </button>
       )}

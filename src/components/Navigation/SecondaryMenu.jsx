@@ -1,5 +1,5 @@
 import React from "react";
-
+import Link from 'react-router-dom'
 const SecondaryMenu = () => {
   const menuLinks = [
     { href: "https://alignafrica.org/FQAS.html", text: "Get involved" },
@@ -22,12 +22,12 @@ const SecondaryMenu = () => {
       <ul className="flex items-center justify-end h-full m-0 space-x-2 list-none">
         {menuLinks.map((link, index) => (
           <li key={index}>
-            <a
-              href={link.href}
+            <Link
+              to={link.href}
               className="flex items-center h-full px-3 text-white transition-colors duration-300 hover:bg-white/20 hover:rounded-full whitespace-nowrap"
             >
               {link.text}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
