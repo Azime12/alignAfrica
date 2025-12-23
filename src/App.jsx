@@ -74,6 +74,7 @@ import History from './pages/FQAS';
 import ContactPage from './pages/Contact';
 import Resource from './pages/resource';
 import DonatePage from './pages/notDonationitAnEvevestment';
+import {menuItems} from './data/menuItems'
 // import SafeguardingPage from './pages/about/SafeguardingPage';
 
 // Ethio-Spirulina pages
@@ -174,7 +175,7 @@ function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
-        <Header />
+        <Header menuItems={menuItems} />
         <main className="flex-grow pt-16"> 
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
