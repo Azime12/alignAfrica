@@ -1,6 +1,6 @@
 import  { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
+// import Header from './components/Header';
 import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
 
@@ -75,6 +75,7 @@ import ContactPage from './pages/Contact';
 import Resource from './pages/resource';
 import DonatePage from './pages/notDonationitAnEvevestment';
 import {menuItems} from './data/menuItems'
+import Header from './components/fHeader';
 // import SafeguardingPage from './pages/about/SafeguardingPage';
 
 // Ethio-Spirulina pages
@@ -174,9 +175,8 @@ import {menuItems} from './data/menuItems'
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
         <Header menuItems={menuItems} />
-        <main className="flex-grow pt-16"> 
+        <main className=""> 
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
              
@@ -314,7 +314,7 @@ function App() {
           </Suspense>
         </main>
         <Footer />
-      </div>
+      
     </Router>
   );
 }

@@ -109,7 +109,7 @@ const SecondaryMenu = ({ isMobile }) => {
             <li key={index}>
               <Link
                 to={link.href}
-                className="flex items-center gap-2 h-full px-4 text-white transition-colors duration-300 hover:bg-white/20 hover:rounded-full whitespace-nowrap"
+                className="flex items-center h-full gap-2 px-4 text-white transition-colors duration-300 hover:bg-white/20 hover:rounded-full whitespace-nowrap"
               >
                 {link.icon && <link.icon className="w-5 h-5" />}
                 <span>{link.text}</span>
@@ -340,7 +340,7 @@ const NavigationItem = ({ item, activeMenu, handleMenuHover, closeMenu, isMenuOp
                     title={subItem.title}
                   >
                     {subItem.icon && (
-                      <div className="flex-shrink-0 opacity-80 group-hover:opacity-100 transition-opacity">
+                      <div className="flex-shrink-0 transition-opacity opacity-80 group-hover:opacity-100">
                         {subItem.icon}
                       </div>
                     )}
@@ -477,12 +477,12 @@ const MobileNavigationItem = ({ item, activeMenu, setActiveMenu, closeMenu }) =>
         <span className="absolute left-[10px] top-1/2 transform -translate-y-1/2">•</span>
         
         {item.icon && (
-          <div className="absolute left-10 top-1/2 transform -translate-y-1/2 opacity-90">
+          <div className="absolute transform -translate-y-1/2 left-10 top-1/2 opacity-90">
             {item.icon}
           </div>
         )}
         
-        <span className="ml-10 block flex-1">{item.title}</span>
+        <span className="flex-1 block ml-10">{item.title}</span>
         {item.submenu && item.submenu.length > 0 && (
           <ChevronRight
             size={16}
@@ -506,14 +506,14 @@ const MobileNavigationItem = ({ item, activeMenu, setActiveMenu, closeMenu }) =>
             height: isOpen ? submenuRef.current?.scrollHeight + 'px' : '0px'
           }}
         >
-          <ul className="list-none m-0 p-0">
+          <ul className="p-0 m-0 list-none">
             {item.submenu.map((subItem, index) => (
               <li key={index}>
                 {subItem.external ? (
                   <a
                     href={subItem.external}
                     onClick={closeMenu}
-                    className="flex items-center gap-3 py-3 px-12 text-white no-underline transition-colors duration-300 hover:bg-white/20 text-base"
+                    className="flex items-center gap-3 px-12 py-3 text-base text-white no-underline transition-colors duration-300 hover:bg-white/20"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -528,7 +528,7 @@ const MobileNavigationItem = ({ item, activeMenu, setActiveMenu, closeMenu }) =>
                   <Link
                     to={subItem.path}
                     onClick={closeMenu}
-                    className="flex items-center gap-3 py-3 px-12 text-white no-underline transition-colors duration-300 hover:bg-white/20 text-base"
+                    className="flex items-center gap-3 px-12 py-3 text-base text-white no-underline transition-colors duration-300 hover:bg-white/20"
                   >
                     {subItem.icon && (
                       <div className="opacity-80">
@@ -555,7 +555,7 @@ const MobileSecondaryMenu = ({ closeMenu }) => {
   ];
 
   return (
-    <div className="relative h-auto mt-4 px-4">
+    <div className="relative h-auto px-4 mt-4">
       <ul className="gap-2 p-0 m-0 text-left list-none">
         {menuLinks.map((link, index) => (
           <li key={index} className='mt-1'>
@@ -598,22 +598,22 @@ const MobileNavigation = ({
       {/* Mobile Header with Logo and Close Button */}
       <div className="sticky top-0 z-50 p-4 bg-[#1A1A1A] border-b border-white/10 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden">
+          <div className="flex items-center justify-center w-10 h-10 overflow-hidden bg-white rounded-full">
             <img 
               src="/images/alignafrica.png" 
               alt="Align Africa Logo" 
-              className="w-8 h-8 object-contain"
+              className="object-contain w-8 h-8"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = "https://via.placeholder.com/32x32?text=AA";
               }}
             />
           </div>
-          <span className="text-white font-bold text-lg">Align Africa</span>
+          <span className="text-lg font-bold text-white">Align Africa</span>
         </div>
         <button
           onClick={closeMenu}
-          className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors duration-200 border-none outline-none"
+          className="flex items-center justify-center w-10 h-10 text-white transition-colors duration-200 border-none rounded-full outline-none bg-white/10 hover:bg-white/20"
           aria-label="Close menu"
         >
           <X size={24} />
@@ -643,7 +643,7 @@ const MobileNavigation = ({
         </Link>
         
         {/* Donate Message */}
-        <div className="mt-2 text-center text-white/90 text-sm">
+        <div className="mt-2 text-sm text-center text-white/90">
           <span className="font-['EB_Garamond'] text-lg font-normal">
             80%+
           </span>{' '}
