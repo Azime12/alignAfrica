@@ -604,7 +604,7 @@ function HeaderMui() {
       display: "flex",
       flexDirection: "column",
       height: "100vh",
-      overflow: "hidden", // Prevent overall drawer scrolling
+      overflow: "hidden",
     },
   }}
   ModalProps={{
@@ -623,7 +623,7 @@ function HeaderMui() {
     {/* HEADER - FIXED AT TOP */}
     <Box
       sx={{
-        flexShrink: 0, // Prevent header from shrinking
+        flexShrink: 0,
         px: 2,
         pt: 1,
         pb: 0.5,
@@ -707,31 +707,96 @@ function HeaderMui() {
     {/* SCROLLABLE CONTENT AREA */}
     <Box
       sx={{
-        flex: 1, // Take up all available space
-        overflowY: "auto", // Enable vertical scrolling
-        WebkitOverflowScrolling: "touch", // Smooth scrolling on iOS
+        flex: 1,
+        overflowY: "auto",
+        WebkitOverflowScrolling: "touch",
       }}
     >
       <List sx={{ py: 0 }}>
         {menuItems.map((item) => (
           <React.Fragment key={item.id}>
-            <ListItem disablePadding sx={{ p: 0 }}>
-              <ListItemButton
-                onClick={() =>
-                  setMobileOpenSub((prev) => ({ ...prev, [item.id]: !prev[item.id] }))
-                }
-                sx={{
-                  backgroundColor: item.bgColor,
-                  py: 0.5,
-                  px: 3,
-                  color: "#fff",
-                  "&:hover": {
+            {/* Check if item has submenu and it's not empty */}
+            {item.submenu && item.submenu.length > 0 ? (
+              // Item WITH submenu (expandable)
+              <>
+                <ListItem disablePadding sx={{ p: 0 }}>
+                  <ListItemButton
+                    onClick={() =>
+                      setMobileOpenSub((prev) => ({ ...prev, [item.id]: !prev[item.id] }))
+                    }
+                    sx={{
+                      backgroundColor: item.bgColor,
+                      py: 0.5,
+                      px: 3,
+                      color: "#fff",
+                      "&:hover": {
+                        backgroundColor: item.bgColor,
+                        filter: 'brightness(0.9)'
+                      },
+                    }}
+                  >
+                    <Box display="flex" justifyContent="space-between" width="100%" alignItems="center">
+                      <Box display="flex" gap={1} alignItems="center">
+                        {item.icon}
+                        <ListItemText 
+                          primary={item.title} 
+                          primaryTypographyProps={{ fontWeight: 500 }}
+                        />
+                      </Box>
+                      <ExpandMoreIcon 
+                        sx={{ 
+                          transform: mobileOpenSub[item.id] ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.2s'
+                        }} 
+                      />
+                    </Box>
+                  </ListItemButton>
+                </ListItem>
+
+                <Collapse in={mobileOpenSub[item.id]} unmountOnExit>
+                  <List disablePadding sx={{ backgroundColor: `${item.bgColor}80` }}>
+                    {item.submenu.map((sub) => (
+                      <ListItemButton
+                        key={sub.path}
+                        component={Link}
+                        to={sub.path}
+                        onClick={() => setMobileOpen(false)}
+                        sx={{ 
+                          pl: 4, 
+                          color: "#fff",
+                          "&:hover": {
+                            backgroundColor: `${item.bgColor}80`,
+                            filter: 'brightness(0.9)'
+                          },
+                        }}
+                      >
+                        <Box display="flex" gap={1} alignItems="center">
+                          {sub.icon}
+                          <ListItemText primary={sub.title} />
+                        </Box>
+                      </ListItemButton>
+                    ))}
+                  </List>
+                </Collapse>
+              </>
+            ) : (
+              // Item WITHOUT submenu or empty submenu (directly clickable)
+              <ListItem disablePadding sx={{ p: 0 }}>
+                <ListItemButton
+                  component={Link}
+                  to={item.path}
+                  onClick={() => setMobileOpen(false)}
+                  sx={{
                     backgroundColor: item.bgColor,
-                    filter: 'brightness(0.9)'
-                  },
-                }}
-              >
-                <Box display="flex" justifyContent="space-between" width="100%" alignItems="center">
+                    py: 0.5,
+                    px: 3,
+                    color: "#fff",
+                    "&:hover": {
+                      backgroundColor: item.bgColor,
+                      filter: 'brightness(0.9)'
+                    },
+                  }}
+                >
                   <Box display="flex" gap={1} alignItems="center">
                     {item.icon}
                     <ListItemText 
@@ -739,38 +804,9 @@ function HeaderMui() {
                       primaryTypographyProps={{ fontWeight: 500 }}
                     />
                   </Box>
-                  {item.submenu && (
-                    mobileOpenSub[item.id] ? <ExpandMoreIcon /> : <ChevronRightIcon />
-                  )}
-                </Box>
-              </ListItemButton>
-            </ListItem>
-
-            <Collapse in={mobileOpenSub[item.id]} unmountOnExit>
-              <List disablePadding sx={{ backgroundColor: `${item.bgColor}80` }}>
-                {item.submenu?.map((sub) => (
-                  <ListItemButton
-                    key={sub.path}
-                    component={Link}
-                    to={sub.path}
-                    onClick={() => setMobileOpen(false)}
-                    sx={{ 
-                      pl: 4, 
-                      color: "#fff",
-                      "&:hover": {
-                        backgroundColor: `${item.bgColor}80`,
-                        filter: 'brightness(0.9)'
-                      },
-                    }}
-                  >
-                    <Box display="flex" gap={1} alignItems="center">
-                      {sub.icon}
-                      <ListItemText primary={sub.title} />
-                    </Box>
-                  </ListItemButton>
-                ))}
-              </List>
-            </Collapse>
+                </ListItemButton>
+              </ListItem>
+            )}
           </React.Fragment>
         ))}
       </List>
@@ -794,7 +830,7 @@ function HeaderMui() {
               backgroundColor: "rgba(255,255,255,0.2)" 
             },
             mb: 0.5,
-            pl:3,
+            pl: 3,
             width: "100%",
           }}
         >
@@ -818,7 +854,7 @@ function HeaderMui() {
               backgroundColor: "rgba(255,255,255,0.2)" 
             },
             mb: 0.5,
-            pl:3,
+            pl: 3,
             width: "100%",
           }}
         >
@@ -834,7 +870,7 @@ function HeaderMui() {
             color: "white",
             fontWeight: "bold",
             fontSize: 14,
-            pl:3,
+            pl: 3,
             textTransform: "none",
             borderRadius: "10px",
             justifyContent: "flex-start",
@@ -853,11 +889,10 @@ function HeaderMui() {
     {/* FIXED DONATE BUTTON AT BOTTOM - OUTSIDE SCROLLABLE AREA */}
     <Box
       sx={{
-        flexShrink: 0, // Prevent shrinking
+        flexShrink: 0,
         px: 2,
-        pt:0.3,
-        pb:8,
-        // mb:2,
+        pt: 0.3,
+        pb: 8,
         background: "linear-gradient(to right, #36a3bc, #1e7e9e)",
         borderTop: "3px solid #953673",
         position: "sticky",
