@@ -840,27 +840,7 @@ const AboutSection = () => {
     </div>
   </div>
 
-  {/* Summary CTA */}
-  <div className="mt-20 text-center">
-    <div className="bg-gradient-to-r from-primaryColor/5 to-secondaryColor/5 rounded-3xl p-10 border" 
-      style={{ borderColor: `${primaryColor}20` }}>
-      <h5 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: primaryColor }}>
-        Driving Sustainable Change Across Africa
-      </h5>
-      <p className="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
-        These numbers represent real lives transformed, communities empowered, and sustainable 
-        development achieved through our collaborative approach.
-      </p>
-      <button className="group inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:shadow-xl"
-        style={{ 
-          backgroundColor: primaryColor,
-          color: 'white'
-        }}>
-        <span>Download Full Impact Report</span>
-        <ArrowRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300" />
-      </button>
-    </div>
-  </div>
+
 </div>
 
 
