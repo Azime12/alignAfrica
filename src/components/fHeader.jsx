@@ -592,7 +592,7 @@ function HeaderMui() {
         </Toolbar>
       </AppBar>
 
-   <Drawer
+  <Drawer
   anchor="left"
   open={mobileOpen}
   onClose={() => setMobileOpen(false)}
@@ -601,471 +601,350 @@ function HeaderMui() {
       width: 280,
       backgroundColor: "#333",
       color: "white",
+      display: "flex",
+      flexDirection: "column",
+      height: "100vh",
+      overflow: "hidden", // Prevent overall drawer scrolling
     },
   }}
   ModalProps={{
     keepMounted: true,
-    disableScrollLock: true, // ← Prevents page shift
+    disableScrollLock: true,
   }}
 >
-
-        <Box sx={{ width: 280 }}>
-          <IconButton
-            onClick={() => setMobileOpen(false)}
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: "white",
-              zIndex: 1,
-            }}
-          >
-            <Close sx={{ fontSize: 30 }} />
-          </IconButton>
-<Box
-  sx={{
-    px: 2.5,
-    py: 3,
+  {/* MAIN CONTAINER WITH FLEX COLUMN LAYOUT */}
+  <Box sx={{ 
+    width: 280,
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-    gap: 2,
-    background: "linear-gradient(135deg, #8a3d06 0%, #6b2d04 100%)",
-    borderBottom: "3px solid #953673",
-    position: "relative",
-    overflow: "hidden",
-    '&::before': {
-      content: '""',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      height: '2px',
-      background: "linear-gradient(90deg, #f7bc47, #953673, #91bc36)",
-      zIndex: 1,
-    },
-    '&::after': {
-      content: '""',
-      position: 'absolute',
-      bottom: 0,
-      left: '10%',
-      right: '10%',
-      height: '1px',
-      background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
-    },
-  }}
->
-  {/* Decorative elements */}
-  <Box
-    sx={{
-      position: 'absolute',
-      top: -20,
-      right: -20,
-      width: 80,
-      height: 80,
-      borderRadius: '50%',
-      background: "radial-gradient(circle, rgba(149,54,115,0.2) 0%, transparent 70%)",
-      zIndex: 0,
-    }}
-  />
-  
-  <Box
-    sx={{
-      position: 'absolute',
-      bottom: -30,
-      left: -30,
-      width: 100,
-      height: 100,
-      borderRadius: '50%',
-      background: "radial-gradient(circle, rgba(247,188,71,0.15) 0%, transparent 70%)",
-      zIndex: 0,
-    }}
-  />
-
-  <Box
-    sx={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      gap: 1.5,
-      position: "relative",
-      zIndex: 1,
-    }}
-  >
+    height: "100%",
+    overflow: "hidden"
+  }}>
+    {/* HEADER - FIXED AT TOP */}
     <Box
       sx={{
-        width: 120,
-        height: 120,
-        borderRadius: "50%",
-        padding: 2,
-        background: "linear-gradient(135deg, rgba(255, 255, 255, 0.753) 0%, rgba(247, 236, 236, 0.726) 100%)",
-        backdropFilter: "blur(10px)",
-        border: "2px solid rgba(255,255,255,0.15)",
-        boxShadow: 
-          "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 4px 20px rgba(255,255,255,0.1)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        flexShrink: 0, // Prevent header from shrinking
+        px: 2,
+        pt: 1,
+        pb: 0.5,
+        background: "linear-gradient(135deg, #8a3d06 0%, #6b2d04 100%)",
+        borderBottom: "3px solid #953673",
       }}
     >
-      <Box
-        component="img"
-        src="/images/alignafrica.png"
-        alt="Align Africa"
+      {/* CLOSE BUTTON */}
+      <IconButton
+        onClick={() => setMobileOpen(false)}
         sx={{
-          width: "90%",
-          height: "auto",
-          objectFit: "contain",
-          filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.3))",
-        }}
-      />
-    </Box>
-
-    <Box sx={{ textAlign: "center", mb: 1 }}>
-      <Box
-        component="h2"
-        sx={{
+          position: "absolute",
+          right: 8,
+          top: 6,
           color: "white",
-          fontSize: "24px",
-          fontWeight: 800,
-          letterSpacing: "0.5px",
-          margin: 0,
-          textShadow: "0 2px 8px rgba(0,0,0,0.5)",
-          background: "linear-gradient(to right, #f7bc47, #ffffff, #91bc36)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          mb: 0.5,
         }}
       >
-        ALIGN AFRICA
+        <Close sx={{ fontSize: 30 }} />
+      </IconButton>
+
+      {/* LOGO + TITLE ROW */}
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+        <Box
+          sx={{
+            width: { xs: 44, sm: 56 },
+            height: { xs: 44, sm: 56 },
+            borderRadius: "50%",
+            p: 0.2,
+            background: "linear-gradient(135deg, #fff 0%, #f3f3f3 100%)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
+        >
+          <Box
+            component="img"
+            src="/images/alignafrica.png"
+            alt="Align Africa"
+            sx={{
+              width: "100%",
+              height: "auto",
+              objectFit: "contain",
+            }}
+          />
+        </Box>
+
+        {/* TITLE */}
+        <Box
+          component="h2"
+          sx={{
+            fontSize: { xs: 18, sm: 22 },
+            fontWeight: 800,
+            m: 0,
+            lineHeight: 1.2,
+            whiteSpace: "nowrap",
+            background: "linear-gradient(to right, #f7bc47, #ffffff, #91bc36)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          ALIGN AFRICA
+        </Box>
       </Box>
+
+      {/* TAGLINE */}
       <Box
         component="p"
         sx={{
-          color: "rgba(255,255,255,0.85)",
-          fontSize: "13px",
-          fontWeight: 400,
-          margin: 0,
-          letterSpacing: "1px",
+          ml: { xs: 0, sm: 7 },
+          fontSize: 12,
+          letterSpacing: 1,
           textTransform: "uppercase",
+          color: "rgba(255,255,255,0.85)",
         }}
       >
         Transforming Lives Together
       </Box>
     </Box>
 
-    {/* Stats Bar */}
+    {/* SCROLLABLE CONTENT AREA */}
     <Box
       sx={{
-        display: "flex",
-        justifyContent: "space-around",
-        width: "100%",
-        maxWidth: 280,
-        backgroundColor: "rgba(0,0,0,0.25)",
-        borderRadius: "12px",
-        padding: "10px 15px",
-        border: "1px solid rgba(255,255,255,0.1)",
-        backdropFilter: "blur(5px)",
-        mb: 1,
+        flex: 1, // Take up all available space
+        overflowY: "auto", // Enable vertical scrolling
+        WebkitOverflowScrolling: "touch", // Smooth scrolling on iOS
       }}
     >
-      <Box sx={{ textAlign: "center" }}>
-        <Box sx={{ color: "#91bc36", fontSize: "18px", fontWeight: 800 }}>80%+</Box>
-        <Box sx={{ color: "rgba(255,255,255,0.7)", fontSize: "11px", textTransform: "uppercase" }}>
-          Direct Impact
-        </Box>
-      </Box>
-      <Box sx={{ 
-        width: "1px", 
-        backgroundColor: "rgba(255,255,255,0.2)",
-        margin: "0 10px"
-      }} />
-      <Box sx={{ textAlign: "center" }}>
-        <Box sx={{ color: "#f7bc47", fontSize: "18px", fontWeight: 800 }}>1000+</Box>
-        <Box sx={{ color: "rgba(255,255,255,0.7)", fontSize: "11px", textTransform: "uppercase" }}>
-          Lives Changed
-        </Box>
-      </Box>
-      <Box sx={{ 
-        width: "1px", 
-        backgroundColor: "rgba(255,255,255,0.2)",
-        margin: "0 10px"
-      }} />
-      <Box sx={{ textAlign: "center" }}>
-        <Box sx={{ color: "#953673", fontSize: "18px", fontWeight: 800 }}>24/7</Box>
-        <Box sx={{ color: "rgba(255,255,255,0.7)", fontSize: "11px", textTransform: "uppercase" }}>
-          Support
-        </Box>
-      </Box>
-    </Box>
-  </Box>
+      <List sx={{ py: 0 }}>
+        {menuItems.map((item) => (
+          <React.Fragment key={item.id}>
+            <ListItem disablePadding sx={{ p: 0 }}>
+              <ListItemButton
+                onClick={() =>
+                  setMobileOpenSub((prev) => ({ ...prev, [item.id]: !prev[item.id] }))
+                }
+                sx={{
+                  backgroundColor: item.bgColor,
+                  py: 0.5,
+                  px: 3,
+                  color: "#fff",
+                  "&:hover": {
+                    backgroundColor: item.bgColor,
+                    filter: 'brightness(0.9)'
+                  },
+                }}
+              >
+                <Box display="flex" justifyContent="space-between" width="100%" alignItems="center">
+                  <Box display="flex" gap={1} alignItems="center">
+                    {item.icon}
+                    <ListItemText 
+                      primary={item.title} 
+                      primaryTypographyProps={{ fontWeight: 500 }}
+                    />
+                  </Box>
+                  {item.submenu && (
+                    mobileOpenSub[item.id] ? <ExpandMoreIcon /> : <ChevronRightIcon />
+                  )}
+                </Box>
+              </ListItemButton>
+            </ListItem>
 
-   <Box
-    sx={{
-      display: "flex",
-      gap: 1.5,
-      width: "100%",
-      mt: 1,
-    }}
-  >
-    <Button
-      component={Link}
-      to="/about"
-      onClick={() => setMobileOpen(false)}
-      sx={{
-        flex: 1,
-        borderRadius: "10px",
-        backgroundColor: "rgba(255,255,255,0.1)",
-        color: "white",
-        fontWeight: 600,
-        fontSize: "12px",
-        textTransform: "none",
-        py: 1,
-        border: "1px solid rgba(255,255,255,0.15)",
-        "&:hover": {
-          backgroundColor: "rgba(255,255,255,0.2)",
-        },
-      }}
-    >
-      About Us
-    </Button>
-    <Button
-      component={Link}
-      to="/impact"
-      onClick={() => setMobileOpen(false)}
-      sx={{
-        flex: 1,
-        borderRadius: "10px",
-        backgroundColor: "rgba(255,255,255,0.1)",
-        color: "white",
-        fontWeight: 600,
-        fontSize: "12px",
-        textTransform: "none",
-        py: 1,
-        border: "1px solid rgba(255,255,255,0.15)",
-        "&:hover": {
-          backgroundColor: "rgba(255,255,255,0.2)",
-        },
-      }}
-    >
-      Our Impact
-    </Button>
-  </Box>
-</Box>
-          <List sx={{ py: 0 }}>
-            {menuItems.map((item) => (
-              <React.Fragment key={item.id}>
-                <ListItem disablePadding sx={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+            <Collapse in={mobileOpenSub[item.id]} unmountOnExit>
+              <List disablePadding sx={{ backgroundColor: `${item.bgColor}80` }}>
+                {item.submenu?.map((sub) => (
                   <ListItemButton
-                    onClick={() =>
-                      setMobileOpenSub((prev) => ({ ...prev, [item.id]: !prev[item.id] }))
-                    }
-                    sx={{
-                      backgroundColor: item.bgColor,
+                    key={sub.path}
+                    component={Link}
+                    to={sub.path}
+                    onClick={() => setMobileOpen(false)}
+                    sx={{ 
+                      pl: 4, 
                       color: "#fff",
                       "&:hover": {
-                        backgroundColor: item.bgColor,
+                        backgroundColor: `${item.bgColor}80`,
                         filter: 'brightness(0.9)'
                       },
                     }}
                   >
-                    <Box display="flex" justifyContent="space-between" width="100%" alignItems="center">
-                      <Box display="flex" gap={1} alignItems="center">
-                        {item.icon}
-                        <ListItemText 
-                          primary={item.title} 
-                          primaryTypographyProps={{ fontWeight: 500 }}
-                        />
-                      </Box>
-                      {item.submenu && (
-                        mobileOpenSub[item.id] ? <ExpandMoreIcon /> : <ChevronRightIcon />
-                      )}
+                    <Box display="flex" gap={1} alignItems="center">
+                      {sub.icon}
+                      <ListItemText primary={sub.title} />
                     </Box>
                   </ListItemButton>
-                </ListItem>
+                ))}
+              </List>
+            </Collapse>
+          </React.Fragment>
+        ))}
+      </List>
 
-                <Collapse in={mobileOpenSub[item.id]} unmountOnExit>
-                  <List disablePadding sx={{ backgroundColor: `${item.bgColor}80` }}>
-                    {item.submenu?.map((sub) => (
-                      <ListItemButton
-                        key={sub.path}
-                        component={Link}
-                        to={sub.path}
-                        onClick={() => setMobileOpen(false)}
-                        sx={{ 
-                          pl: 4, 
-                          color: "#fff",
-                          "&:hover": {
-                            backgroundColor: `${item.bgColor}80`,
-                            filter: 'brightness(0.9)'
-                          },
-                        }}
-                      >
-                        <Box display="flex" gap={1} alignItems="center">
-                          {sub.icon}
-                          <ListItemText primary={sub.title} />
-                        </Box>
-                      </ListItemButton>
-                    ))}
-                  </List>
-                </Collapse>
-              </React.Fragment>
-            ))}
-          </List>
+      {/* MOBILE ACTION BUTTONS (INSIDE SCROLLABLE AREA) */}
+      <Box sx={{ px: 1, py: 0.4, pb: 1 }}>
+        <Button
+          component={Link}
+          to="/faqs"
+          startIcon={<VolunteerActivismIcon />}
+          onClick={() => setMobileOpen(false)}
+          sx={{
+            color: "white",
+            fontWeight: "bold",
+            fontSize: 14,
+            textTransform: "none",
+            borderRadius: "10px",
+            justifyContent: "flex-start",
+            backgroundColor: "rgba(255,255,255,0.1)",
+            "&:hover": { 
+              backgroundColor: "rgba(255,255,255,0.2)" 
+            },
+            mb: 0.5,
+            pl:3,
+            width: "100%",
+          }}
+        >
+          Get Involved
+        </Button>
 
-          {/* Mobile Action Buttons */}
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 1.5,
-              px: 2,
-              py: 3,
-              background: "linear-gradient(to right, #36a3bc, #1e7e9e)",
-              mt: 'auto',
-            }}
-          >
-            <Button
-              component={Link}
-              to="/faqs"
-              startIcon={<VolunteerActivismIcon />}
-              onClick={() => setMobileOpen(false)}
-              sx={{
-                color: "white",
-                fontWeight: "bold",
-                fontSize: 14,
-                textTransform: "none",
-                borderRadius: "10px",
-                justifyContent: "flex-start",
-                backgroundColor: "rgba(255,255,255,0.1)",
-                "&:hover": { 
-                  backgroundColor: "rgba(255,255,255,0.2)" 
-                },
-              }}
-            >
-              Get Involved
-            </Button>
+        <Button
+          component={Link}
+          to="/contactsUs"
+          startIcon={<ContactMail />}
+          onClick={() => setMobileOpen(false)}
+          sx={{
+            color: "white",
+            fontWeight: "bold",
+            fontSize: 14,
+            textTransform: "none",
+            borderRadius: "10px",
+            justifyContent: "flex-start",
+            backgroundColor: "rgba(255,255,255,0.1)",
+            "&:hover": { 
+              backgroundColor: "rgba(255,255,255,0.2)" 
+            },
+            mb: 0.5,
+            pl:3,
+            width: "100%",
+          }}
+        >
+          Contact
+        </Button>
 
-            <Button
-              component={Link}
-              to="/contactsUs"
-              startIcon={<ContactMail />}
-              onClick={() => setMobileOpen(false)}
-              sx={{
-                color: "white",
-                fontWeight: "bold",
-                fontSize: 14,
-                textTransform: "none",
-                borderRadius: "10px",
-                justifyContent: "flex-start",
-                backgroundColor: "rgba(255,255,255,0.1)",
-                "&:hover": { 
-                  backgroundColor: "rgba(255,255,255,0.2)" 
-                },
-              }}
-            >
-              Contact
-            </Button>
+        <Button
+          component={Link}
+          to="/resource"
+          startIcon={<MenuBook />}
+          onClick={() => setMobileOpen(false)}
+          sx={{
+            color: "white",
+            fontWeight: "bold",
+            fontSize: 14,
+            pl:3,
+            textTransform: "none",
+            borderRadius: "10px",
+            justifyContent: "flex-start",
+            backgroundColor: "rgba(255,255,255,0.1)",
+            "&:hover": { 
+              backgroundColor: "rgba(255,255,255,0.2)" 
+            },
+            width: "100%",
+          }}
+        >
+          Resources
+        </Button>
+      </Box>
+    </Box>
 
-            <Button
-              component={Link}
-              to="/resource"
-              startIcon={<MenuBook />}
-              onClick={() => setMobileOpen(false)}
-              sx={{
-                color: "white",
-                fontWeight: "bold",
-                fontSize: 14,
-                textTransform: "none",
-                borderRadius: "10px",
-                justifyContent: "flex-start",
-                backgroundColor: "rgba(255,255,255,0.1)",
-                "&:hover": { 
-                  backgroundColor: "rgba(255,255,255,0.2)" 
-                },
-              }}
-            >
-              Resources
-            </Button>
-             {/* Enhanced Donate Button */}
-  <Button
-    component={Link}
-    to="/donate"
-    onClick={() => setMobileOpen(false)}
-    fullWidth
-    sx={{
-      borderRadius: "16px",
-      background: "linear-gradient(135deg, #91bc36 0%, #a7d447 100%)",
-      color: "white",
-      fontWeight: 900,
-      fontSize: "18px",
-      textTransform: "uppercase",
-      boxShadow: `
-        0 8px 0 #759e1e,
-        0 15px 30px rgba(145, 188, 54, 0.4),
-        inset 0 4px 15px rgba(255, 255, 255, 0.3)
-      `,
-      py: 1.8,
-      px: 3,
-      position: "relative",
-      overflow: "hidden",
-      zIndex: 1,
-      letterSpacing: "1px",
-      transition: "all 0.2s ease",
-      "&:hover": {
-        background: "linear-gradient(135deg, #a7d447 0%, #b8e05c 100%)",
-        transform: "translateY(2px)",
-        boxShadow: `
-          0 6px 0 #759e1e,
-          0 12px 25px rgba(145, 188, 54, 0.5),
-          inset 0 4px 15px rgba(255, 255, 255, 0.4)
-        `,
-      },
-      "&:active": {
-        transform: "translateY(8px)",
-        boxShadow: `
-          0 0 0 #759e1e,
-          0 5px 15px rgba(145, 188, 54, 0.4),
-          inset 0 4px 15px rgba(255, 255, 255, 0.3)
-        `,
-      },
-      "&::before": {
-        content: '"❤️"',
-        position: "absolute",
-        left: 15,
-        top: "50%",
-        transform: "translateY(-50%)",
-        fontSize: 22,
-        animation: "heartBeat 1.5s infinite",
-        "@keyframes heartBeat": {
-          "0%": { transform: "translateY(-50%) scale(1)" },
-          "5%": { transform: "translateY(-50%) scale(1.2)" },
-          "10%": { transform: "translateY(-50%) scale(1)" },
-          "15%": { transform: "translateY(-50%) scale(1.2)" },
-          "20%": { transform: "translateY(-50%) scale(1)" },
-          "100%": { transform: "translateY(-50%) scale(1)" },
-        },
-      },
-      "&::after": {
-        content: '""',
-        position: "absolute",
-        top: 0,
-        left: "-100%",
-        width: "100%",
-        height: "100%",
-        background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
-        transition: "left 0.7s ease",
-      },
-      "&:hover::after": {
-        left: "100%",
-      },
-    }}
-  >
-    <Box sx={{ pl: 3 }}>DONATE NOW</Box>
-  </Button>
-          </Box>
-        </Box>
-      </Drawer>
+    {/* FIXED DONATE BUTTON AT BOTTOM - OUTSIDE SCROLLABLE AREA */}
+    <Box
+      sx={{
+        flexShrink: 0, // Prevent shrinking
+        px: 2,
+        pt:0.3,
+        pb:8,
+        // mb:2,
+        background: "linear-gradient(to right, #36a3bc, #1e7e9e)",
+        borderTop: "3px solid #953673",
+        position: "sticky",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+      }}
+    >
+      <Button
+        component={Link}
+        to="/donate"
+        onClick={() => setMobileOpen(false)}
+        fullWidth
+        sx={{
+          borderRadius: "16px",
+          background: "linear-gradient(135deg, #91bc36 0%, #a7d447 100%)",
+          color: "white",
+          fontWeight: 900,
+          fontSize: "18px",
+          textTransform: "uppercase",
+          boxShadow: `
+            0 8px 0 #759e1e,
+            0 15px 30px rgba(145, 188, 54, 0.4),
+            inset 0 4px 15px rgba(255, 255, 255, 0.3)
+          `,
+          py: 1.2,
+          px: 0,
+          position: "relative",
+          overflow: "hidden",
+          zIndex: 1,
+          letterSpacing: "1px",
+          transition: "all 0.2s ease",
+          "&:hover": {
+            background: "linear-gradient(135deg, #a7d447 0%, #b8e05c 100%)",
+            transform: "translateY(2px)",
+            boxShadow: `
+              0 6px 0 #759e1e,
+              0 12px 25px rgba(145, 188, 54, 0.5),
+              inset 0 4px 15px rgba(255, 255, 255, 0.4)
+            `,
+          },
+          "&:active": {
+            transform: "translateY(8px)",
+            boxShadow: `
+              0 0 0 #759e1e,
+              0 5px 15px rgba(145, 188, 54, 0.4),
+              inset 0 4px 15px rgba(255, 255, 255, 0.3)
+            `,
+          },
+          "&::before": {
+            content: '"❤️"',
+            position: "absolute",
+            left: 15,
+            top: "50%",
+            transform: "translateY(-50%)",
+            fontSize: 20,
+            animation: "heartBeat 1.5s infinite",
+            "@keyframes heartBeat": {
+              "0%": { transform: "translateY(-50%) scale(1)" },
+              "5%": { transform: "translateY(-50%) scale(1.2)" },
+              "10%": { transform: "translateY(-50%) scale(1)" },
+              "15%": { transform: "translateY(-50%) scale(1.2)" },
+              "20%": { transform: "translateY(-50%) scale(1)" },
+              "100%": { transform: "translateY(-50%) scale(1)" },
+            },
+          },
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            left: "-100%",
+            width: "100%",
+            height: "100%",
+            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
+            transition: "left 0.7s ease",
+          },
+          "&:hover::after": {
+            left: "100%",
+          },
+        }}
+      >
+        <Box sx={{ pl: 2 }}>DONATE NOW</Box>
+      </Button>
+    </Box>
+  </Box>
+</Drawer>
     </>
   );
 }
